@@ -1,0 +1,59 @@
+FROM php:5.6-fpm
+
+MAINTAINER David Goring
+
+RUN apt-get update \
+ && apt-get install -y --no-install-recommends \
+    nginx \
+    supervisor \
+    libjpeg62-turbo-dev \
+    libfreetype6-dev \
+    libreadline-dev \
+    libmcrypt-dev \
+    libtidy-dev \
+    zziplib-bin \
+    libxml2-dev \
+    libzip-dev \
+    gnupg \
+    msmtp \
+    cron
+
+RUN openssl req -new -newkey rsa:4096 -nodes -x509 -days 365 \
+    -subj "/C=GB/ST=Denial/L=Springfield/O=Dis/CN=www.example.com" \
+    -keyout /etc/ssl/certs/server.key \
+    -out    /etc/ssl/certs/server.crt
+
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+ && docker-php-ext-install \
+    dom \
+    exif \
+    gd \
+    iconv \
+    mysql \
+    mysqli \
+    mbstring \
+    mcrypt \
+    pdo_mysql \
+    tidy \
+    zip
+
+RUN curl -sS https://getcomposer.org/installer | php \
+ && mv composer.phar /usr/bin/composer
+
+RUN mkdir /var/client_body_temp
+COPY etc/ /etc
+
+COPY site/ /site
+RUN mkdir /config
+COPY examples/nginx.conf /config
+
+RUN chown -Rf www-data.www-data /site /config
+
+# Copy main script
+COPY run.sh /run.sh
+RUN chmod u+rwx /run.sh
+
+EXPOSE 443
+
+WORKDIR /site
+ENTRYPOINT ["/run.sh"]
