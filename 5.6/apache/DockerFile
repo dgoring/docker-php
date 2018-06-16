@@ -14,10 +14,12 @@ RUN apt-get update \
     libtidy-dev \
     zziplib-bin \
     libxml2-dev \
+    libssh2-1-dev \
     libzip-dev \
     gnupg \
     msmtp \
     cron \
+    git \
  && a2enmod \
     rewrite \
     actions \
@@ -43,7 +45,10 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     mcrypt \
     pdo_mysql \
     tidy \
-    zip
+    zip \
+ && pecl install ssh2 \
+ && docker-php-ext-enable \
+    ssh2
 
 RUN curl -sS https://getcomposer.org/installer | php \
  && mv composer.phar /usr/bin/composer

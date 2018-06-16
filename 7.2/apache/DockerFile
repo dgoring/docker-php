@@ -11,6 +11,7 @@ RUN apt-get update \
     libfreetype6-dev \
     libreadline-dev \
     libmcrypt-dev \
+    libssh2-1-dev \
     libtidy-dev \
     zziplib-bin \
     libxml2-dev \
@@ -18,6 +19,7 @@ RUN apt-get update \
     gnupg \
     msmtp \
     cron \
+    git \
  && a2enmod \
     rewrite \
     actions \
@@ -41,7 +43,10 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     mbstring \
     pdo_mysql \
     tidy \
-    zip
+    zip \
+ && pecl install ssh2-1.1.2 \
+ && docker-php-ext-enable \
+    ssh2
 
 RUN curl -sS https://getcomposer.org/installer | php \
  && mv composer.phar /usr/bin/composer
