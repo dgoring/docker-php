@@ -1,13 +1,9 @@
-[program:php-fpm]
-command=php-fpm --nodaemonize --fpm-config /etc/php-fpm.conf
-user=root
+[program:queue]
+command=php /site/artisan queue:work
 autostart=true
 autorestart=true
-priority=1
-startretries=3
-stopwaitsecs=10
+priority=4
 stdout_logfile=/dev/stdout
 stdout_logfile_maxbytes=0
 stderr_logfile=/dev/stderr
 stderr_logfile_maxbytes=0
-
