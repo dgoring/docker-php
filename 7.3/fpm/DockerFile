@@ -1,4 +1,4 @@
-FROM php:5.6-fpm
+FROM php:7.3-fpm
 
 MAINTAINER David Goring
 
@@ -20,7 +20,7 @@ RUN apt-get update \
     git \
     zip
 
-RUN yes | pecl install xdebug-2.5.5 \
+RUN yes | pecl install xdebug \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
@@ -30,22 +30,23 @@ RUN openssl req -new -newkey rsa:4096 -nodes -x509 -days 365 \
     -keyout /etc/ssl/certs/server.key \
     -out    /etc/ssl/certs/server.crt
 
-RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
- && docker-php-ext-install \
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+RUN docker-php-ext-install \
     dom \
     exif \
     gd \
     iconv \
-    mysql \
     mysqli \
     mbstring \
-    mcrypt \
     pdo_mysql \
     tidy \
-    zip \
- && pecl install ssh2 \
- && docker-php-ext-enable \
-    ssh2
+    zip
+
+RUN cd /tmp \
+    && git clone https://git.php.net/repository/pecl/networking/ssh2.git \
+    && cd /tmp/ssh2/ \
+    && .travis/build.sh \
+    && docker-php-ext-enable ssh2
 
 RUN curl -sS https://getcomposer.org/installer | php \
  && mv composer.phar /usr/bin/composer
