@@ -50,6 +50,9 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
 RUN curl -sS https://getcomposer.org/installer | php \
  && mv composer.phar /usr/bin/composer
 
+RUN curl -sSL https://phar.phpunit.de/phpunit-6.5.phar -o /usr/bin/phpunit \
+ && chmod +x /usr/bin/phpunit
+
 COPY etc/ /etc
 
 COPY site/ /site
