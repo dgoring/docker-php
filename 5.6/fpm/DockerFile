@@ -19,7 +19,8 @@ RUN apt-get update \
     cron \
     git \
     zip \
-    unzip
+    unzip \
+    sudo
 
 RUN yes | pecl install xdebug-2.5.5 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
@@ -61,9 +62,12 @@ RUN mkdir /config
 
 RUN chown -Rf www-data.www-data /site /config
 
+RUN echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+USER www-data:www-data
+
 # Copy main script
 COPY run.sh /run.sh
-RUN chmod u+rwx /run.sh
+RUN sudo chmod u+rwx /run.sh
 
 EXPOSE 443
 

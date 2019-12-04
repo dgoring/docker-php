@@ -2,11 +2,11 @@ FROM dgoring/php:7.1-fpm
 
 MAINTAINER David Goring
 
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
+RUN sudo apt-get update \
+ && sudo apt-get install -y --no-install-recommends \
     nginx
 
-RUN mkdir /var/client_body_temp
+RUN sudo mkdir /var/client_body_temp
 
 COPY etc/nginx/ /etc/nginx/
 COPY etc/supervisor.d/nginx.ini /etc/supervisor.d/

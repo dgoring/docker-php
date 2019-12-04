@@ -58,3 +58,9 @@ and set your fpm listener to a file or different port
   </FilesMatch>
 </IfModule>
 ```
+
+### Extending
+Note the default user is `www-data` so you need to prefix commands with `sudo` i.e.
+```conf
+RUN sudo apt-get install package-name
+```

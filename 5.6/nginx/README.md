@@ -59,3 +59,9 @@ location ~ \.php\d?$ {
 }
 
 ```
+
+### Extending
+Note the default user is `www-data` so you need to prefix commands with `sudo` i.e.
+```conf
+RUN sudo apt-get install package-name
+```

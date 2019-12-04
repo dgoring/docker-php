@@ -2,11 +2,11 @@ FROM dgoring/php:7.3-fpm
 
 MAINTAINER David Goring
 
-RUN apt-get update \
- && apt-get install -y --no-install-recommends \
+RUN sudo apt-get update \
+ && sudo apt-get install -y --no-install-recommends \
     apache2 \
     libapache2-mod-xsendfile \
- && a2enmod \
+ && sudo a2enmod \
     rewrite \
     actions \
     proxy_fcgi \
