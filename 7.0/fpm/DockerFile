@@ -58,6 +58,10 @@ RUN curl -sS https://getcomposer.org/installer | php \
 RUN curl -sSL https://phar.phpunit.de/phpunit-6.5.phar -o /usr/bin/phpunit \
  && chmod +x /usr/bin/phpunit
 
+RUN curl -sSL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+        -o /usr/local/bin/wp \
+  && chmod +x /usr/local/bin/wp
+
 COPY etc/ /etc
 
 COPY site/ /site
