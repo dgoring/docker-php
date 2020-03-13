@@ -59,7 +59,7 @@ COPY etc/ /etc
 COPY site/ /site
 RUN mkdir /config
 
-RUN chown -Rf www-data.www-data /site /config
+RUN chown -Rf www-data.www-data /site /config /var/www
 
 RUN echo "www-data ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER www-data:www-data
