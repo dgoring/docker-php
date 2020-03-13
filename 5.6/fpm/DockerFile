@@ -20,9 +20,12 @@ RUN apt-get update \
     git \
     zip \
     unzip \
-    sudo
+    sudo \
+    imagemagick \
+    ghostscript \
+    libmagickwand-dev
 
-RUN yes | pecl install xdebug-2.5.5 \
+RUN yes | pecl install imagick xdebug-2.5.5 \
     && echo "zend_extension=$(find /usr/local/lib/php/extensions/ -name xdebug.so)" > /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_enable=on" >> /usr/local/etc/php/conf.d/xdebug.ini \
     && echo "xdebug.remote_autostart=off" >> /usr/local/etc/php/conf.d/xdebug.ini
@@ -47,7 +50,8 @@ RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-di
     zip \
  && pecl install ssh2 \
  && docker-php-ext-enable \
-    ssh2
+    ssh2 \
+    imagick
 
 RUN curl -sS https://getcomposer.org/installer | php \
  && mv composer.phar /usr/bin/composer
