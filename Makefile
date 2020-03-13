@@ -33,7 +33,7 @@ build/7.0-fpm: 7.0/fpm
 	docker image build -t dgoring/php:7.0-fpm ./7.0/fpm
 	@date > ./build/7.0-fpm
 
-build/7.0-apache: 7.0/ build/7.0-fpm
+build/7.0-apache: 7.0/apache build/7.0-fpm
 	@make loggedin
 	docker image build -t dgoring/php:7.0-apache ./7.0/apache
 	docker push dgoring/php:7.0-apache
