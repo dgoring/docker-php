@@ -1,4 +1,4 @@
-build/version: build/5.6-apache build/5.6-nginx build/7.0-apache build/7.0-nginx build/7.1-apache build/7.1-nginx build/7.2-apache build/7.2-nginx build/7.3-apache build/7.3-nginx
+build/version: build/5.6-apache build/5.6-nginx build/7.0-apache build/7.0-nginx build/7.1-apache build/7.1-nginx build/7.2-apache build/7.2-nginx build/7.3-apache build/7.3-nginx build/7.4-apache build/7.4-nginx
 	date > build/version
 
 loggedin:
@@ -97,4 +97,21 @@ build/7.3-nginx: 7.3/nginx build/7.3-fpm
 	docker image build -t dgoring/php:7.3-nginx ./7.3/nginx
 	docker push dgoring/php:7.3-nginx
 	@date > ./build/7.3-nginx
+
+build/7.4-fpm: 7.4/fpm
+	@make loggedin
+	docker image build -t dgoring/php:7.4-fpm ./7.4/fpm
+	@date > ./build/7.4-fpm
+
+build/7.4-apache: 7.4/apache build/7.4-fpm
+	@make loggedin
+	docker image build -t dgoring/php:7.4-apache ./7.4/apache
+	docker push dgoring/php:7.4-apache
+	@date > ./build/7.4-apache
+
+build/7.4-nginx: 7.4/nginx build/7.4-fpm
+	@make loggedin
+	docker image build -t dgoring/php:7.4-nginx ./7.4/nginx
+	docker push dgoring/php:7.4-nginx
+	@date > ./build/7.4-nginx
 
