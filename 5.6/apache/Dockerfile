@@ -2,7 +2,7 @@ FROM dgoring/php:5.6-fpm
 
 MAINTAINER David Goring
 
-RUN sudo apt-get update \
+RUN sudo apt-get update --allow-releaseinfo-change \
  && sudo apt-get install -y --no-install-recommends \
     apache2 \
     libapache2-mod-xsendfile \
