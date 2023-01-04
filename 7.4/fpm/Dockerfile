@@ -5,6 +5,8 @@ MAINTAINER David Goring
 RUN apt-get update \
  && apt-get install -y --no-install-recommends \
     supervisor \
+    libjpeg-dev \
+    libpng-dev \
     libjpeg62-turbo-dev \
     libfreetype6-dev \
     libreadline-dev \
@@ -36,7 +38,7 @@ RUN openssl req -new -newkey rsa:4096 -nodes -x509 -days 365 \
     -keyout /etc/ssl/certs/server.key \
     -out    /etc/ssl/certs/server.crt
 
-RUN docker-php-ext-configure gd
+RUN docker-php-ext-configure gd --with-jpeg --with-freetype
 RUN docker-php-ext-install \
     dom \
     exif \
