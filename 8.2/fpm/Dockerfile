@@ -1,12 +1,16 @@
-FROM php:8.0-fpm
+FROM php:8.2-fpm
 
 MAINTAINER David Goring
 
-RUN apt-get update \
+RUN apt-get update --allow-releaseinfo-change \
  && apt-get install -y --no-install-recommends \
     supervisor \
+    libjpeg-dev \
     libjpeg62-turbo-dev \
+    libpng-dev \
     libfreetype6-dev \
+    libfreetype-dev \
+    libwebp-dev \
     libreadline-dev \
     libmcrypt-dev \
     libssh2-1-dev \
@@ -36,8 +40,9 @@ RUN openssl req -new -newkey rsa:4096 -nodes -x509 -days 365 \
     -keyout /etc/ssl/certs/server.key \
     -out    /etc/ssl/certs/server.crt
 
-RUN docker-php-ext-configure gd
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 RUN docker-php-ext-install \
+    -j$(nproc) \
     dom \
     exif \
     gd \
