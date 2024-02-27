@@ -1,4 +1,4 @@
-build/version: build/5.6-apache build/5.6-nginx build/7.0-apache build/7.0-nginx build/7.1-apache build/7.1-nginx build/7.2-apache build/7.2-nginx build/7.3-apache build/7.3-nginx build/7.4-apache build/7.4-nginx build/8.0-apache build/8.0-nginx build/8.1-apache build/8.1-nginx build/8.2-apache build/8.2-nginx
+build/version: build/5.6-apache build/5.6-nginx build/7.0-apache build/7.0-nginx build/7.1-apache build/7.1-nginx build/7.2-apache build/7.2-nginx build/7.3-apache build/7.3-nginx build/7.4-apache build/7.4-nginx build/8.0-apache build/8.0-nginx build/8.1-apache build/8.1-nginx build/8.2-apache build/8.2-nginx build/8.3-apache build/8.3-nginx
 	date > build/version
 
 loggedin:
@@ -166,4 +166,21 @@ build/8.2-nginx: 8.2/nginx build/8.2-fpm
 	docker image build -t dgoring/php:8.2-nginx ./8.2/nginx
 	docker push dgoring/php:8.2-nginx
 	@date > ./build/8.2-nginx
+
+build/8.3-fpm: 8.3/fpm
+	@make loggedin
+	docker image build -t dgoring/php:8.3-fpm ./8.3/fpm
+	@date > ./build/8.3-fpm
+
+build/8.3-apache: 8.3/apache build/8.3-fpm
+	@make loggedin
+	docker image build -t dgoring/php:8.3-apache ./8.3/apache
+	docker push dgoring/php:8.3-apache
+	@date > ./build/8.3-apache
+
+build/8.3-nginx: 8.3/nginx build/8.3-fpm
+	@make loggedin
+	docker image build -t dgoring/php:8.3-nginx ./8.3/nginx
+	docker push dgoring/php:8.3-nginx
+	@date > ./build/8.3-nginx
 
