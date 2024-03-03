@@ -61,7 +61,7 @@ RUN pecl install ssh2-1.3.1 && \
 RUN curl -sS https://getcomposer.org/installer | php \
  && mv composer.phar /usr/bin/composer
 
-RUN curl -skSL https://phar.phpunit.de/phpunit-8.4.phar -o /usr/bin/phpunit \
+RUN curl -skSL https://phar.phpunit.de/phpunit-10.phar -o /usr/bin/phpunit \
  && chmod +x /usr/bin/phpunit
 
 RUN curl -sSL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
