@@ -202,3 +202,21 @@ build/8.4-nginx: 8.4/nginx build/8.4-fpm
 	docker push dgoring/php:8.4-nginx
 	@date > ./build/8.4-nginx
 
+
+build/8.5-fpm: 8.5/fpm
+	@make loggedin
+	docker image build -t dgoring/php:8.5-fpm ./8.5/fpm
+	@date > ./build/8.5-fpm
+
+build/8.5-apache: 8.5/apache build/8.5-fpm
+	@make loggedin
+	docker image build -t dgoring/php:8.5-apache ./8.5/apache
+	docker push dgoring/php:8.5-apache
+	@date > ./build/8.5-apache
+
+build/8.5-nginx: 8.5/nginx build/8.5-fpm
+	@make loggedin
+	docker image build -t dgoring/php:8.5-nginx ./8.5/nginx
+	docker push dgoring/php:8.5-nginx
+	@date > ./build/8.5-nginx
+

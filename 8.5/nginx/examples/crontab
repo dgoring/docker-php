@@ -1,0 +1,9 @@
+# |     +----------- hour (0 - 23)
+# |     |     +--------- day of month (1 - 31)
+# |     |     |   +------- month (1 - 12)
+# |     |     |   |    +----- day of week (0 - 6) (Sunday=0)
+# |     |     |   |    |
+# -     -     -   -    -
+# *     *     *   *    *        command to be executed
+
+# *     *     *   *    *        php /site/artisan schedule:run 1>> /dev/stdout 2>> /dev/stderr

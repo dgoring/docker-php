@@ -1,0 +1,31 @@
+[mine]
+
+listen = 127.0.0.1:8000
+
+listen.allowed_clients = 127.0.0.1
+
+user = www-data
+group = www-data
+
+pm = dynamic
+
+pm.max_children = 30
+pm.start_servers = 15
+pm.min_spare_servers = 15
+pm.max_spare_servers = 25
+pm.max_requests = 500
+
+pm.status_path = /super-secret-fpm-status
+ping.path = /super-secret-ping-path
+
+request_terminate_timeout = 60s
+
+request_slowlog_timeout = 5s
+slowlog = /var/log/$pool.log.slow
+
+rlimit_files = 4096
+rlimit_core = 0
+
+chdir = /site/
+
+catch_workers_output = yes
